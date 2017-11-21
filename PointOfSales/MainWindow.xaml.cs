@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
-
+using System.IO;
 
 
 
@@ -27,10 +27,14 @@ namespace PointOfSales
         public MainWindow()
         {
             InitializeComponent();
-            Categories.Add(new Category { Name = "Books", Items = new List<string> { "Harry Potter and The Philosopher's Stone", "Cat and The Hat", "C# For Dummies" } });
-            Categories.Add(new Category { Name = "Electronics", Items = new List<string> { "Dell Laptop", "Iphone", "eReader" } });
-            Categories.Add(new Category { Name = "Homegoods", Items = new List<string> { "Microwave", "Vacuum", "Lamp" } });
-            Categories.Add(new Category { Name = "Groceries", Items = new List<string> { "Milk", "Bread", "Cereal" } });
+           
+
+            Products laptop = new Products("Dell", "$600", "I-5 Intel processor");
+            Categories.Add(new Category { Name = "Electronics", Items = new List<String> { laptop.Name + " "+ laptop.Price + "" + laptop.Description} });
+            //Categories.Add(new Category { Name = "Books", Items = new List<Products> { "Harry Potter and The Philosopher's Stone", "Cat and The Hat", "C# For Dummies" } });
+            //Categories.Add(new Category { Name = "Electronics", Items = new List<Products> { "Dell Laptop", "Iphone", "eReader" } });
+            //Categories.Add(new Category { Name = "Homegoods", Items = new List<Products> { "Microwave", "Vacuum", "Lamp" } });
+            //Categories.Add(new Category { Name = "Groceries", Items = new List<Products> { "Milk", "Bread", "Cereal" } });
         }
         private ObservableCollection<Category> categories = new ObservableCollection<Category>();
         public ObservableCollection<Category> Categories
@@ -54,12 +58,33 @@ namespace PointOfSales
         {
             Cart.Items.Clear();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 
     public class Category
     {
         public string Name { get; set; }
-        public List<string> Items { get; set; }
+        public List<String> Items { get; set; }
+        
+        
+        
+    }
+    public class Products
+    {
+        public string Name { get; set; }
+        public string Price { get; set; }
+        public string Description { get; set; }
+        public Products(string Name, String Price, String Description)
+        {
+            this.Name = Name;
+            this.Price = Price;
+            this.Description = Description;
+        }
+        
     }
 
 }
