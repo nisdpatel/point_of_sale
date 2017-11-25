@@ -24,13 +24,13 @@ namespace PointOfSales
         public MainWindow()
 
         {/*****creating new books and adding to book category ******/
-            Product c_tutor = new Product("C# For Dummies", "54.78", "C# tutorial");
-            Product cat_hat = new Product("Cat and the Hat", "2.00", "Children's book from Dr.Suess");
+            Product c_tutor = new Product("C# For Dummies", "54.78", "C# tutorial", 0.0975);
+            Product cat_hat = new Product("Cat and the Hat", "2.00", "Children's book from Dr.Suess", 0.0975);
 
             List<Product> new_books = new List<Product> {cat_hat};
             new_books.Add(c_tutor);
 
-            Category books = new Category("Books", new_books);
+            Category books = new Category("Books", new_books, 0.0975);
         /**************************************************************/
 
             InitializeComponent();
@@ -69,15 +69,21 @@ namespace PointOfSales
         private void ChckOutBtn_Click(object sender, RoutedEventArgs e)
         {
             double subtotal = 0;
+            double total = 0;
+            double taxes = 0;
 
             for (int i = 0; i < Cart.Items.Count; i++)
             {
                 Product cartitem = (Product)Cart.Items[i];
                 subtotal += Convert.ToDouble(cartitem.Pprice);
+                taxes += Convert.ToDouble(cartitem.Pprice) * cartitem.PtaxRate;
 
             }
 
-            MessageBox.Show("Sub-Total: $" + subtotal.ToString());//display subtotal for all items in shopping cart
+            total = subtotal + taxes;
+
+            MessageBox.Show("Sub-Total: $" + subtotal.ToString() + "\n" + "Taxes: $" + taxes.ToString() + "\n" + "Total: $"
+                + total.ToString() + "\n");//display subtotal for all items in shopping cart
         }
         //*******************************************************************/
 
@@ -87,7 +93,7 @@ namespace PointOfSales
             public string Cname { get; set; }
             public List<Product> Cproducts { get; set; }
 
-            public Category(string cname, List<Product> cproducts)
+            public Category(string cname, List<Product> cproducts, double ctaxRate)
             {
                 this.Cname = cname;
                 this.Cproducts = cproducts;
@@ -104,13 +110,15 @@ namespace PointOfSales
               public string Pname { get; set; }
               public string Pprice { get; set; }
               public string Pdescription { get; set; }
+              public string Pcategory;
+              public double PtaxRate;
 
-
-              public Product(string pname, string pprice, string pdescription)
+              public Product(string pname, string pprice, string pdescription, double ptaxRate)
               {
                   this.Pname = pname;
                   this.Pprice = pprice;
                   this.Pdescription = pdescription;
+                  this.PtaxRate = ptaxRate;
 
               }
 
