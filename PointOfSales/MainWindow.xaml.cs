@@ -26,25 +26,23 @@ namespace PointOfSales
     {
         public MainWindow()
         {
+            Product c_tutor = new Product("C# For Dummies", "54.78", "C# tutorial");
+            Product cat_hat = new Product("Cat and the Hat", "2.00", "Children's book from Dr.Suess");
 
-
-            Product harry_potter = new Product("Harry Potter and the Philosopher's Stone", "26.00", "First Book in the Harry Potter Series");
-            List<Product> new_products = new List<Product> { harry_potter };
+            List<Product> new_products = new List<Product> {cat_hat};
+            new_products.Add(c_tutor);
 
             Category books = new Category("Books", new_products);
 
 
             InitializeComponent();
-            Products.Add(books);
-            // Categories.Add(new Category { Name = "Electronics", Items = new List<String> { "Dell Laptop", "Iphone", "eReader" } });
-            // Categories.Add(new Category { Name = "Homegoods", Items = new List<String> { "Microwave", "Vacuum", "Lamp" } });
-            // Categories.Add(new Category { Name = "Groceries", Items = new List<String> { "Milk", "Bread", "Cereal" } });
+            Categories.Add(books);
         }
-        private ObservableCollection<Category> products = new ObservableCollection<Category>();
-        public ObservableCollection<Category> Products
+        private ObservableCollection<Category> categories = new ObservableCollection<Category>();
+        public ObservableCollection<Category> Categories
         {
-            get { return products; }
-            set { products = value; }
+            get { return categories; }
+            set { categories = value; }
         }
 
         private void AddCart_Click(object sender, RoutedEventArgs e)
@@ -78,31 +76,46 @@ namespace PointOfSales
             {
                 return this.Cname;
             }
-
-            // public ObservableCollection<Category> products = new ObservableCollection<Category>();
         }
 
-            public class Product
+        public class Product
+        {
+              public string Pname { get; set; }
+              public string Pprice { get; set; }
+              public string Pdescription { get; set; }
+
+
+              public Product(string pname, string pprice, string pdescription)
+              {
+                  this.Pname = pname;
+                  this.Pprice = pprice;
+                  this.Pdescription = pdescription;
+
+              }
+
+            public double toPrice(string cart_item)
             {
-                public string Pname { get; set; }
-                public string Pprice { get; set; }
-                public string Pdescription { get; set; }
 
-
-                public Product(string pname, string pprice, string pdescription)
-                {
-                    this.Pname = pname;
-                    this.Pprice = pprice;
-                    this.Pdescription = pdescription;
-
-                }
-
-                public override string ToString()
-                {
-                    return this.Pname + " | Price: $" + this.Pprice + " | Description: " + this.Pdescription;
-                }
+                return Convert.ToDouble(cart_item);
             }
-        
 
+              public override string ToString()
+              {
+                  return this.Pname + " | Price: $" + this.Pprice + " | Description: " + this.Pdescription;
+              }
+        }
+
+        private void ChckOutBtn_Click(object sender, RoutedEventArgs e) {
+          double subtotal = 0;
+
+          for(int i = 0; i < Cart.Items.Count ; i++)
+          {
+              Product cartitem = (Product)Cart.Items[i];
+              subtotal += Convert.ToDouble(cartitem.Pprice);
+                    
+          }
+
+          MessageBox.Show("Sub-Total: $" + subtotal.ToString());
+        }
     }
 }
