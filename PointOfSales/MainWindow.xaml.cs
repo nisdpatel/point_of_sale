@@ -83,7 +83,7 @@ namespace PointOfSales
             total = subtotal + taxes;
 
             MessageBox.Show("Sub-Total: $" + subtotal.ToString() + "\n" + "Taxes: $" + taxes.ToString() + "\n" + "Total: $"
-                + total.ToString() + "\n");//display subtotal for all items in shopping cart
+                + total.ToString() + "\n");//display subtotal taxes and total for all items in shopping cart
         }
         //*******************************************************************/
 
