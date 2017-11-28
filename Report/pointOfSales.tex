@@ -833,7 +833,7 @@ Below is a sample diagram that represents point of sales functionality.
 
 \section{Project Structure}
 %At first, this will be a little empty (it will need to be filled in by the time you turn in your final report).  This is your chance to discuss all of your design decisions (consider this the README's big brother).
-
+We are planning on using an observer pattern that can maintain a list of object's dependents. We decided to use this pattern because observer pattern will notifies its dependent objects whenever a subject is modified. For instance, if a user clicks add to cart, it will add that item into the cart and likewise if the user removes an item from the cart, it will update the cart by changing the object's state. 
 
 
 \subsection{UML Outline}
