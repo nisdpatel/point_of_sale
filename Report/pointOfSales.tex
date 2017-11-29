@@ -775,10 +775,11 @@ The flow of the point of sale would be like the following:
 \item User cart is updated to reflect the new item, this also updates the current total.
 \item User left-clicks on ``Checkout" button to pay the total amount.
 \item(Termination Outcome) The user now has a single instance of the item in their cart.
-\end{enumerate}
-
-\subsubsection*{User Story}
-As a user, he or she will be able to click on different department to see what products are being offered. Once the user has explore the menu, now he or she can add items in to the cart by clicking ``add to cart" button. Furthermore, the user can see the current running total of the cart on the display. When the user is ready to checkout, he or she can click``checkout" button on the screen and that will allow them to pay the final price. 
+\end{enumerate} 
+\textbf{User Stories}:\\
+User Story 1: As a user, he or she will be able to click on different department to see what products are being offered\\
+User Story 2: Once the user has explore the menu, now he or she can add items in to the cart by clicking ``add to cart" button. Furthermore, the user can see the current running total of the cart on the display. \\
+User Story 3: When the user is ready to checkout, he or she can click``checkout" button on the screen and that will allow them to pay the final price including the taxes.
 
 %You may need to also add in any alternative flows:
 
@@ -833,7 +834,7 @@ Below is a sample diagram that represents point of sales functionality.
 
 \section{Project Structure}
 %At first, this will be a little empty (it will need to be filled in by the time you turn in your final report).  This is your chance to discuss all of your design decisions (consider this the README's big brother).
-We are planning on using an observer pattern that can maintain a list of object's dependents. We decided to use this pattern because observer pattern will notifies its dependent objects whenever a subject is modified. For instance, if a user clicks add to cart, it will add that item into the cart and likewise if the user removes an item from the cart, it will update the cart by changing the object's state. 
+We are planning on using a built-in observer pattern that can maintain a list of object's dependents. We decided to use this pattern because observer pattern will notifies its dependent objects whenever a subject is modified. For instance, if a user clicks add to cart, it will add that item into the cart and likewise if the user removes an item from the cart, it will update the cart by changing the object's state. We are planning to use Abstract Factory Pattern to create different themes for different stores. 
 
 
 \subsection{UML Outline}
