@@ -834,7 +834,7 @@ Below is a sample diagram that represents point of sales functionality.
 
 \section{Project Structure}
 %At first, this will be a little empty (it will need to be filled in by the time you turn in your final report).  This is your chance to discuss all of your design decisions (consider this the README's big brother).
-We are planning on using a built-in observer pattern that can maintain a list of object's dependents. We decided to use this pattern because observer pattern will notifies its dependent objects whenever a subject is modified. For instance, if a user clicks add to cart, it will add that item into the cart and likewise if the user removes an item from the cart, it will update the cart by changing the object's state. We are planning to use Abstract Factory Pattern to create different themes for different stores. 
+We are planning on using a built-in observer pattern that can maintain a list of object's dependents. We decided to use this pattern because observer pattern will notifies its dependent objects whenever a subject is modified. For instance, if a user clicks add to cart, it will add that item into the cart and likewise if the user removes an item from the cart, it will update the cart by changing the object's state. We are planning to use Abstract Factory Pattern to create different themes for different stores. However, now we have decided to use builder design pattern. 
 
 
 \subsection{UML Outline}
@@ -863,10 +863,13 @@ We have modified the previous interface with this one because navigating from on
 
 \subsection{Design Patterns Used}
 %Make sure to actually use at least 2 design patterns from this class.  This is not normally part of such documentation, but largely just specific to this class -- I want to see you use the patterns!
+We used built-in observable pattern that can maintain a list of object's dependents and we decided to use this pattern because observer pattern will notifies its dependent objects whenever a subject is modified.  Furthermore, we are using Builder design patter because it separate the construction of a complex objects from its representation so the same construction process can create different representations. In our POS, we are using this method to separate "manager" and "employee" view. For example, on the manager window's, they should be able to view the inventory list where they can add/remove items into the database. However, on the employee window, they can only have limited access. For instance, employee cannot view the inventory list and they do not have access to add/remove items into the database.
+
 
 
 \section{Results}
-%This section will start out a little vague, but it should grow as your project evolves.  With each deliverable you hand in, give me a final summary of where your project stands.  By the end, this should be a reflective section discussing how many of your original goals you managed to attain/how many desired use cases you implemented/how many extra features you added.
+%This section will start out a little vague, but it should grow as your project evolves.  With each deliverable you hand in, give me a final summary of where your project stands.  By the end, this should be a reflective section discussing how many of your original goals you managed to attain/how many desired use cases you implemented/how many extra features you added. 
+
 
 \subsection{Future Work}
 %Where are you going next with your project?
