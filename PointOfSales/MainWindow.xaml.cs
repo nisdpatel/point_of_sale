@@ -14,16 +14,17 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 using System.IO;
-
-
+using System.Data.Entity;
+using POSData;
 
 namespace PointOfSales
 {
     public partial class MainWindow : Window
     {
+        private ProductContext _context = new ProductContext();
         public MainWindow()
 
-        {/*****creating new books and adding to book category ******/
+        {/*****creating new books and adding to book category ******
             Product c_tutor = new Product("C# For Dummies", "54.78", "C# tutorial", 0.0975);
             Product cat_hat = new Product("Cat and the Hat", "2.00", "Children's book from Dr.Suess", 0.0975);
 
@@ -31,107 +32,91 @@ namespace PointOfSales
             new_books.Add(c_tutor);
 
             Category books = new Category("Books", new_books, 0.0975);
-        /**************************************************************/
+        **************************************************************/
 
             InitializeComponent();
-
-            Categories.Add(books);//adding book category to observable collection
+            
+          //  Categories.Add();//adding book category to observable collection
         }
 
         /************* creating our observable list and defining its getter and setter (listing is bounded to "category_box")************/
         private ObservableCollection<Category> categories = new ObservableCollection<Category>();
         public ObservableCollection<Category> Categories
-        {
-            get { return categories; }
-            set { categories = value; }
+       {
+         get { return categories; }
+         set { categories = value; }
         }
 
         /******************************************************************************************/
 
-        /************Button Events*****************************************************************/
 
-        private void AddCart_Click(object sender, RoutedEventArgs e)
+
+
+        private void UI_Loaded_1(object sender, RoutedEventArgs e)
         {
-            Cart.Items.Add(Shop_Items.SelectedItem);//add items to shopping cart
+            System.Windows.Data.CollectionViewSource categoryViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("categoryViewSource")));
+
+            // Load is an extension method on IQueryable, 
+            // defined in the System.Data.Entity namespace.
+            // This method enumerates the results of the query, 
+            // similar to ToList but without creating a list.
+            // When used with Linq to Entities this method 
+            // creates entity objects and adds them to the context.
+            _context.Categories.Load();
+
+            // After the data is loaded call the DbSet<T>.Local property 
+            // to use the DbSet<T> as a binding source.
+            categoryViewSource.Source = _context.Categories.Local;
+
+
+            // Load data by setting the CollectionViewSource.Source property:
+            categoryViewSource.Source = _context.Categories.Local;
         }
 
-        private void RemoveCart_Click(object sender, RoutedEventArgs e)
-        {
-            Cart.Items.Remove(Cart.SelectedItem);// remove selected item from shopping cart
 
+
+        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
+        {
+            base.OnClosing(e);
+            this._context.Dispose();
         }
 
-        private void EmptyCart_Click(object sender, RoutedEventArgs e)
+        private void Savebtn_Click(object sender, RoutedEventArgs e)
         {
-            Cart.Items.Clear();//clear all items from shopping cart
-        }
+            // When you delete an object from the related entities collection 
+            // (in this case Products), the Entity Framework doesn’t mark 
+            // these child entities as deleted.
+            // Instead, it removes the relationship between the parent and the child
+            // by setting the parent reference to null.
+            // So we manually have to delete the products 
+            // that have a Category reference set to null.
 
-        private void ChckOutBtn_Click(object sender, RoutedEventArgs e)
-        {
-            double subtotal = 0;
-            double total = 0;
-            double taxes = 0;
-
-            for (int i = 0; i < Cart.Items.Count; i++)
+            // The following code uses LINQ to Objects 
+            // against the Local collection of Products.
+            // The ToList call is required because otherwise the collection will be modified
+            // by the Remove call while it is being enumerated.
+            // In most other situations you can use LINQ to Objects directly 
+            // against the Local property without using ToList first.
+            foreach (var product in _context.Products.Local.ToList())
             {
-                Product cartitem = (Product)Cart.Items[i];
-                subtotal += Convert.ToDouble(cartitem.Pprice);
-                taxes += Convert.ToDouble(cartitem.Pprice) * cartitem.PtaxRate;
-
+                if (product.Category == null)
+                {
+                    _context.Products.Remove(product);
+                }
             }
 
-            total = subtotal + taxes;
+            _context.SaveChanges();
+            // Refresh the grids so the database generated values show up.
+            this.categoryDataGrid.Items.Refresh();
+            this.productsDataGrid.Items.Refresh();
 
-            MessageBox.Show("Sub-Total: $" + Math.Truncate(subtotal *100)/100 + "\n" + "Taxes: $" + +Math.Truncate(taxes * 100) / 100 + "\n" + "Total: $"
-                + +Math.Truncate(subtotal * 100) / 100 + "\n");//display subtotal taxes and total for all items in shopping cart
-        }
-        //*******************************************************************/
-
-        /*****************Custom category and product classes****************/
-        public class Category
-        {
-            public string Cname { get; set; }
-            public List<Product> Cproducts { get; set; }
-
-            public Category(string cname, List<Product> cproducts, double ctaxRate)
-            {
-                this.Cname = cname;
-                this.Cproducts = cproducts;
-            }
-
-            public override string ToString()
-            {
-                return this.Cname;
-            }
         }
 
-        public class Product
+        private void Shopping_Click(object sender, RoutedEventArgs e)
         {
-              public string Pname { get; set; }
-              public string Pprice { get; set; }
-              public string Pdescription { get; set; }
-              public string Pcategory;
-              public double PtaxRate;
-
-              public Product(string pname, string pprice, string pdescription, double ptaxRate)
-              {
-                  this.Pname = pname;
-                  this.Pprice = pprice;
-                  this.Pdescription = pdescription;
-                  this.PtaxRate = ptaxRate;
-
-              }
-
-            public double toPrice(string cart_item)
-            {
-
-                return Convert.ToDouble(cart_item);
-            }
-
-              public override string ToString()
-              {
-                  return this.Pname + " | Price: $" + this.Pprice + " | Description: " + this.Pdescription;
-              }
+            Checkout chkout = new Checkout();
+            chkout.Show();
+            this.Close();
         }
         /***********************************************************************************************************/
     }
