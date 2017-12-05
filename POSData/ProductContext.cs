@@ -9,6 +9,9 @@ namespace POSData
 {
     public class ProductContext : DbContext
     {
+        public ProductContext() : base("PointOfSales.Properties.Settings.PosDBConnectionString") 
+        {
+        }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
     }
