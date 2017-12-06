@@ -474,7 +474,7 @@
 % in the abstract or keywords.
 \IEEEtitleabstractindextext{%
 \begin{abstract}
-A point sale system is an application for store, in general. It has a functionality of purchasing  various products from different departments by adding them into the cart and checks out the cart by paying the total amount. The target audience for this project is anyone who uses a checkout. 
+A point sale system is an application for small private franchises (retail). It has a functionality of purchasing  various products from different departments by adding them into the cart and checks out the cart by paying the total amount. The target audience for this project is anyone who uses a checkout. 
 \end{abstract}
 
 %As the comment below states, you usually only do these when you're doing a final submission of a paper, to make it easier to find your work when searching.
@@ -550,16 +550,7 @@ A point sale system is an application for store, in general. It has a functional
 
 
 \subsection{Planning}
-What does a point of sale need? 
-\begin{itemize}
-\item Menu-driven interface for all departments and their sub departments with the list of items and prices
-\item Add to cart can constantly update the cart as soon as the user adds an item
-\item Keep track of added items into the cart
-\item A running display of total
-\item Tax calculation
-\item A keypad
-\item Payment options (cash or credit)
-\end{itemize}
+ It needs a menu-driven interface for all departments and their sub departments with the list of items and prices where a user can add or remove from cart . Furthermore, in our POS keep tracks of added or removed items into the cart. Next, we need a functionality to manage a running display of total with tax calculation. Last, a user have a payment option (cash or credit) when they checkout. 
 
 
 %Occasionally you need to break your sections into separate parts, you will likely not need a subsection for every section
@@ -675,12 +666,12 @@ What does a point of sale need?
 
 Point of sale systems are used by the vast majority of retail and restaurant chains today. They simplify the lives of both the employees and customers by making checkout time faster. The also help company operations by automating inventory and accounting. Our point of sale systems needs be easy enough for anyone to learn to use. It should be intuitive enough to use with little or no training and allow employees or customer to place an order and check out in efficient manner. We plan to do this an easy to understand GUI. Just click to add items to cart and check out. \\
 
-A point of sale is a user interface to purchase objects. We decided to do this project because it is something that everyone uses all the time without thinking. We wanted to learn more about what actually goes on as a user is checking out a product.   
+A point of sale is a user interface to purchase objects. We decided to do this project because it is something that everyone uses all the time without thinking. We wanted to learn more about what actually goes on as a user is checking out a product. Josh works at the Pizza Hut and he is using similar system for their store, so he knows about the POS functionality. 
 
 
 \subsection{Challenges}
 %For your first deliverable, this should be a list of where you believe you will get stuck -- what do you see as the most difficult portion of your project?
-The biggest challenge would be the communication between main menu interface and their sub-menus. For instance, one of department called Books is going to be one of the tab in the main menu. Once use clicked on the Book, it will redirect them into the sub menu for the Books where it has list of books with name, author's name, and price. The challenge here would be how are we going to link the main and sub menu together. \\
+The biggest challenge was to the communication between main menu interface and their sub-menus. For instance, one of department called Books is going to be one of the tab in the main menu. Once use clicked on the Book, it will redirect them into the sub menu for the Books where it has list of books with name, author's name, and price. The challenge here would be how are we going to link the main and sub menu together. \\
 
 Once we get the basics done, the next challenge would be to keep updating the shopping cart after a user adds an item. There will be more once we start working on it. For example, what design pattern are we going to use for the software that is easy to implement, straight forward user interface, and use of local database that can track our inventories. While picking a specific design pattern, we have make sure if it serves our purpose or not before we start scripting.
 
@@ -703,7 +694,7 @@ We would say that our project will be done roughly within a month and a half. If
 
 \subsection{Requirements}
 %As part of fleshing out the scope of your requirements, you'll also need to keep in mind both your functional and non-functional requirements.  These should be listed, and explained in detail as necessary.  Use this area to explain how you gathered these requirements.
-The requirements we gathered for our point of sales system are the following: 
+The requirements we gathered for our point of sales system by brainstorming and doing online research. We created flowcharts of what tools and functionality we needed and how to tie them together. We also watch POS tutorials online to familiarize with the system. 
 
 
 
@@ -741,6 +732,8 @@ Use Case ID & Use Case Name & Primary Actor & Complexity & Priority \\
 \hline
 3 & Checkout & Shopper and Cashier (applicable to both) & Med & 2\\
 \hline
+4 & Stocking & Manager & High & 3\\
+\hline
 \end{tabular}}\\
 \caption{Point of Sale Use Case Table}
 \label{tab:useCaseIndex}
@@ -766,7 +759,13 @@ Use Case ID & Use Case Name & Primary Actor & Complexity & Priority \\
 \item[Use Case Name:] Checkout
 \item[Description]: A shopper on our site has added item in cart and now they are ready to checkout. They will click on ``Checkout" button. This will kick off a process to calculate the total amount with price and taxes. 
 \end{itemize} 
-Note: Add an additional use case(s) if needed.
+
+\begin{itemize}
+\item[Use Case Number:] 4
+\item[Use Case Name:] Stocking
+\item[Description]: Manager on our site has access to the inventory list where they can click on "check inventory" button to see how many items are sold and if they have to restock them. 
+\end{itemize} 
+
 The flow of the point of sale would be like the following:
 \begin{enumerate}
 \item User navigates to department listing.
@@ -777,9 +776,10 @@ The flow of the point of sale would be like the following:
 \item(Termination Outcome) The user now has a single instance of the item in their cart.
 \end{enumerate} 
 \textbf{User Stories}:\\
-User Story 1: As a user, he or she will be able to click on different department to see what products are being offered\\
-User Story 2: Once the user has explore the menu, now he or she can add items in to the cart by clicking ``add to cart" button. Furthermore, the user can see the current running total of the cart on the display. \\
-User Story 3: When the user is ready to checkout, he or she can click``checkout" button on the screen and that will allow them to pay the final price including the taxes.
+User Story 1: As a user,I want to click on different department to see what products are being offered\\
+User Story 2: As a user has explore the menu, now he or she can add items in to the cart by clicking ``add to cart" button. Furthermore, the user can see the current running total of the cart on the display. \\
+User Story 3: As a user is ready to checkout, he or she can click``checkout" button on the screen and that will allow them to pay the final price including the taxes.
+User Story 4: As a manager, I want to see the inventory list with what products we have sold and in what quantity. Once the store restocks the inventory, I should be able to add them into the inventory database.
 
 %You may need to also add in any alternative flows:
 
@@ -809,24 +809,46 @@ Below is a sample diagram that represents point of sales functionality.
 \label{cat1}
 \end{figure}
 
+
+We have modified the previous interface with this one because navigating from one window to the another until you reach the final sub menu was a bit challenging. We decided to go with a simple option where our design looks simple and easy to implement.
+\begin{figure}[H]
+\includegraphics[height=200px, width=300px]{main}
+\caption{is a representation of new interface}
+\label{newmain}
+\end{figure}
+
+\begin{figure}[H]
+\includegraphics[height=200px, width=300px]{submenu}
+\caption{ is a representation of how the point of sales system is working internally.}
+\label{newmain}
+\end{figure}
+
+\begin{figure}[H]
+\includegraphics[height=200px, width=300px]{electronics}
+\caption{is a representation of submenu}
+\label{submenu}
+\end{figure}
+
+
+
 \section{Project Timeline}
 %Go back to your notes and look up a typical project development life cycle for the Waterfall approach.  How will you follow this life cycle over the remainder of this semester?  This will usually involve a chart showing your proposed timeline, with specific milestones plotted out.  Make sure you have deliverable dates from the course schedule listed, with a plan to meet them (NOTE: these are generally optimistic deadlines).
  Below is the timeline planned out about how we are following project development life cycle for the Waterfall approach. 
  
 \begin{figure}[H]
-\includegraphics[height=350px, width=450px]{PT(detail)}
+\includegraphics[height=250px, width=400px]{new}
 \caption{is a detailed representation of project development with the tasks, start and end dates, duration, percentage complete, and status}
 \label{PT}
 \end{figure}
 
 \begin{figure}[H]
-\includegraphics[height=250px, width=500px]{timeline}
+\includegraphics[height=200px, width=400px]{new1}
 \caption{is a  representation of proposed timeline}
 \label{timeline}
 \end{figure}
 
 \begin{figure}[H]
-\includegraphics[height=300px, width=500px]{fullPT}
+\includegraphics[height=200px, width=400px]{new2}
 \caption{is a  representation full timeline showing both details plotted timeline for rest of the semester}
 \label{fullPT}
 \end{figure}
@@ -834,30 +856,12 @@ Below is a sample diagram that represents point of sales functionality.
 
 \section{Project Structure}
 %At first, this will be a little empty (it will need to be filled in by the time you turn in your final report).  This is your chance to discuss all of your design decisions (consider this the README's big brother).
-We are planning on using a built-in observer pattern that can maintain a list of object's dependents. We decided to use this pattern because observer pattern will notifies its dependent objects whenever a subject is modified. For instance, if a user clicks add to cart, it will add that item into the cart and likewise if the user removes an item from the cart, it will update the cart by changing the object's state. We are planning to use Abstract Factory Pattern to create different themes for different stores. However, now we have decided to use builder design pattern. 
+We are planning on using a built-in observer pattern that can maintain a list of object's dependents. We decided to use this pattern because the observer pattern will notify its dependent objects whenever a subject is modified. For instance, if a user clicks add to cart, it will add that item into the cart and likewise if the user removes an item from the cart, it will update the cart by changing the object's state. We are planning to use Abstract Factory Pattern to create different themes for different stores. However, now we have decided to use builder design pattern. 
 
 
 \subsection{UML Outline}
 %Show the full structure of your program.  Make sure to keep on updating this section as your project evolves (you often start out with one plan, but end up modifying things as you move along).  As a note, while Dia fails miserably at generating pdfs (probably my fault), I have had much success with png files.  Make sure to wrap your images in a \texttt{figure} environment, and to reference with the \texttt{ref} command.  For example, see Figure \ref{cat2}.
-We have modified the previous interface with this one because navigating from one window to the another until you reach the final sub menu was a bit challenging. We decided to go with a simple option where our design looks simple and easy to implement.
 
-\begin{figure}[H]
-\includegraphics[height=350px, width=350px]{main}
-\caption{is a representation of new interface}
-\label{newmain}
-\end{figure}
-
-\begin{figure}[H]
-\includegraphics[height=350px, width=350px]{submenu}
-\caption{ is a representation of how the point of sales system is working internally.}
-\label{newmain}
-\end{figure}
-
-\begin{figure}[H]
-\includegraphics[height=250px, width=350px]{electronics}
-\caption{is a representation of submenu}
-\label{submenu}
-\end{figure}
 
 
 
