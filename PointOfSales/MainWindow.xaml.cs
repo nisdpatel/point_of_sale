@@ -112,11 +112,11 @@ namespace PointOfSales
 
         }
 
-        private void Shopping_Click(object sender, RoutedEventArgs e)
-        {
-            Checkout chkout = new Checkout();
-            chkout.Show();
-            this.Close();
+      private void Shopping_Click(object sender, RoutedEventArgs e)
+       {
+          //  Checkout chkout = new Checkout();
+         //   chkout.Show();
+         //   this.Close();
         }
         /***********************************************************************************************************/
     }

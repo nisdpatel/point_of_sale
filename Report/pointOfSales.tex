@@ -691,7 +691,7 @@ Once we get the basics done, the next challenge would be to keep updating the sh
 %This section is a bit tricksy.  You are going to do your best to set up ground rules:  How will you know when your project is done?
 The final goal of our project is the following: first, it will provide a menu-driven interface of a departmental store. Second, it will allow users to view, select the available products, and add items into the cart. Third, it will allow user to go to the final step where they can check out their cart by paying the total amount in cash or by card. \newline
 
-Currently, we are assuming that we are creating this application to sell it in the small-emerging private retail market. We will be testing this application in our departmental store first, then sell it as a point of sale software for a fixed price. Once the base is done, we can update our system according to the company's requirements.Our two  "stretch goals" would be first adding more products that are easily customizable as needed and provide an accurate final result. Moreover, it should allow the user to add any number of items in the cart and check out by paying the right total amount.\\
+Currently, we are assuming that we are creating this application to sell it in the small-emerging private retail market. We will be testing this application in our departmental store first, then sell it as a point of sale software for a fixed price. Once the base is done, we can update our system according to the company's requirements.Our two ``stretch goals" would be first adding more products that are easily customizable as needed and provide an accurate final result. Moreover, it should allow the user to add any number of items in the cart and check out by paying the right total amount.\\
 \subsection{Estimate Time}
 We would say that our project will be done roughly within a month and a half. If we finish it early, we can add other features.
 %If you were doing this under contract for a company, this would be your checklist to make sure you get paid.  We will be going into this in more detail over time, but you should start planning your major goals of the project as soon as possible.
@@ -834,7 +834,7 @@ Below is a sample diagram that represents point of sales functionality.
 
 \section{Project Structure}
 %At first, this will be a little empty (it will need to be filled in by the time you turn in your final report).  This is your chance to discuss all of your design decisions (consider this the README's big brother).
-We are planning on using a built-in observer pattern that can maintain a list of object's dependents. We decided to use this pattern because observer pattern will notifies its dependent objects whenever a subject is modified. For instance, if a user clicks add to cart, it will add that item into the cart and likewise if the user removes an item from the cart, it will update the cart by changing the object's state. We are planning to use Abstract Factory Pattern to create different themes for different stores. 
+We are planning on using a built-in observer pattern that can maintain a list of object's dependents. We decided to use this pattern because observer pattern will notifies its dependent objects whenever a subject is modified. For instance, if a user clicks add to cart, it will add that item into the cart and likewise if the user removes an item from the cart, it will update the cart by changing the object's state. We are planning to use Abstract Factory Pattern to create different themes for different stores. However, now we have decided to use builder design pattern. 
 
 
 \subsection{UML Outline}
@@ -863,16 +863,48 @@ We have modified the previous interface with this one because navigating from on
 
 \subsection{Design Patterns Used}
 %Make sure to actually use at least 2 design patterns from this class.  This is not normally part of such documentation, but largely just specific to this class -- I want to see you use the patterns!
+We used built-in observable pattern that can maintain a list of object's dependents and we decided to use this pattern because observer pattern will notifies its dependent objects whenever a subject is modified.  Furthermore, we are using Builder design patter because it separate the construction of a complex objects from its representation so the same construction process can create different representations. In our POS, we are using this method to separate "manager" and "employee" view. For example, on the manager window's, they should be able to view the inventory list where they can add/remove items into the database on the fly. However, on the employee window, they can only have limited access. For instance, employee cannot view the inventory list and they do not have access to add/remove items into the database. We used Microsoft SQL database to store out products according to there category. We also used entity framework that offers an automated mechanism to developers for storing and accessing data in the database. 
 
 
 \section{Results}
-%This section will start out a little vague, but it should grow as your project evolves.  With each deliverable you hand in, give me a final summary of where your project stands.  By the end, this should be a reflective section discussing how many of your original goals you managed to attain/how many desired use cases you implemented/how many extra features you added.
+%This section will start out a little vague, but it should grow as your project evolves.  With each deliverable you hand in, give me a final summary of where your project stands.  By the end, this should be a reflective section discussing how many of your original goals you managed to attain/how many desired use cases you implemented/how many extra features you added. 
+Our point of sales can do the following tasks: First, user can view the menu-driven interface for all departments with the list of items, prices, and products description. Second, a user can select a department and view the offered items. Third, a user can select item(s) and add into the cart by clicking "Add to Cart" button. Fourth, it can keep track of added or removed items from the cart (constantly updating the cart whenever a user makes any changes). Fifth, when a user click on "checkout" button, it will help them the current running total with the taxes. \\
+
+\begin{figure}[H]
+\includegraphics[height=250px, width=420px]{inventory.png}
+\caption{is a representation of inventory window where a manager can add products on the fly}
+\label{inventory}
+\end{figure}
+
+\begin{figure}[H]
+\includegraphics[height=250px, width=420px]{basicFunc.png}
+\caption{is a representation of basic functionality where a user can view, add, and delete items in the cart}
+\label{basicfun}
+\end{figure}
+
+\begin{figure}[H]
+\includegraphics[height=250px, width=420px]{checkout.png}
+\caption{is a representation of checkout process}
+\label{checkout}
+\end{figure}
+
+
+
+We have met our two stretch goals: a user can add more products that are easily customizable as needed and provide an accurate final total. It also allows a user to add any number of items with repetition in the cart and check out by paying the right total amount. \\
+
+
+
+In addition, we have implemented all the use cases in out software. First, a user can select different departments and view what products are being offered. Second, user can add or remove items anytime in the cart. Third, a user can see the final price including the taxes when they click on checkout. In short, our project has all the functionality as we planned. 
+
+
+
 
 \subsection{Future Work}
 %Where are you going next with your project?
 %For early deliverables, what are your next steps?  (HINT: you will typically want to look back at your timeline and evaluate: did you meet your expected goals?  Are you ahead of schedule?  Did you decide to shift gears and implement a new feature?)
 %By the end, what do you plan on doing with this project?  Will you try to sell it?  Set it on fire?  Link to it on your resume and forget it exists?
-
+For the future development, we have to work on the security issues by create a login page for the user and it will grant access according to the entered credentials. For instance, admin has full access to the system whereas employees has limited access. Next, we want to create a prettier interface by adding additional functionality such as add images of the products, so user know what they are buying. Then, create a finite list of inventory with the item counts, so the manager can see how many items has been sold and restock them as needed. Last, we want to add a functionality where user can select a payment type (cash or credit) and process the payment.
+We almost met the expected goals. We decided to shift gears with the initial design because changing a window every time when a user clicks was bit challenging, so we decided to go with a simpler approach by using a listbox. We will be selling this software directly to the retailer once it has all the functionality and we will be linking on your resume. 
 
 
 
