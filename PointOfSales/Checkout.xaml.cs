@@ -34,7 +34,10 @@ namespace PointOfSales
 
         private void AddCart_Click(object sender, RoutedEventArgs e)
         {
-            Cart.Items.Add(Shop_Items.SelectedItem);//add items to shopping cart
+            if (Shop_Items.SelectedItem != null)
+            {
+                Cart.Items.Add(Shop_Items.SelectedItem);//add items to shopping cart
+            }
         }
 
         private void RemoveCart_Click(object sender, RoutedEventArgs e)
@@ -66,6 +69,10 @@ namespace PointOfSales
 
             MessageBox.Show("Sub-Total: $" + Math.Truncate(subtotal * 100) / 100 + "\n" + "Taxes: $" + +Math.Truncate(taxes * 100) / 100 + "\n" + "Total: $"
                 + +Math.Truncate(total * 100) / 100 + "\n");//display subtotal taxes and total for all items in shopping cart
+
+            Cart.Items.Clear();//clear all items from shopping cart
+
+
         }
 
 
